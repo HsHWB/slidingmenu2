@@ -19,7 +19,7 @@ public class SlidingView extends HorizontalScrollView {
     private ViewGroup leftItemView;
     private ViewGroup contentView;
     private LinearLayout mainLinear;
-    private ListView mListView;
+    private ListViewForScrollView mListView;
     private float screenWidth;
     private float screenHeight;
     private int menuWidth;
@@ -46,7 +46,7 @@ public class SlidingView extends HorizontalScrollView {
         leftItemView = (ViewGroup) mainLinear.getChildAt(0);
         contentView = (ViewGroup) mainLinear.getChildAt(1);
         menuWidth = leftItemView.getWidth();
-        mListView = (ListView) contentView.findViewById(R.id.content_listview);
+        mListView = (ListViewForScrollView) contentView.findViewById(R.id.content_listview);
         mListView.setAdapter(new ContentListAdapter(mContext));
         /**
          * contentView宽度设置为屏幕宽度
