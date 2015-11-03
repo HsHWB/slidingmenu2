@@ -2,6 +2,7 @@ package com.example.sliding.slidingmenu2;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -69,7 +70,7 @@ public class SlidingView extends HorizontalScrollView {
 
     /**
      * action_up:
-     * scrollX > menuWidth/2 && !menuState :当meun为close时，触发
+     *
      * @param ev
      * @return
      */
@@ -79,10 +80,20 @@ public class SlidingView extends HorizontalScrollView {
         int action = ev.getAction();
         switch (action){
             case MotionEvent.ACTION_UP:
-                int scrollX = getScrollX();
-                if (scrollX > menuWidth/2 && !menuState){
-                    super.smoothScrollTo(0, 0);
-                    return true;
+                int xScroll = getScrollX();
+                //右拉，meun为close时，触发
+                if (xScroll > menuWidth/2 *1.5 && !menuState){
+                    menuClose();
+                }
+                //左拉,menu为open时，触发
+                else if (xScroll <= menuWidth/2 *1.5  && !menuState){
+                    menuOpen();
+                }
+                else if (xScroll <= menuWidth/4  && menuState){
+                    menuOpen();
+                }
+                else if (xScroll > menuWidth/4  && menuState){
+                    menuClose();
                 }
                 return true;
         }
@@ -99,7 +110,9 @@ public class SlidingView extends HorizontalScrollView {
      */
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt){
-
+        super.onScrollChanged(l, t, oldl, oldt);
+        float scale = l * 1.0f / menuWidth;
+        leftItemView.setTranslationX(menuWidth * scale);
     }
 
     /**
