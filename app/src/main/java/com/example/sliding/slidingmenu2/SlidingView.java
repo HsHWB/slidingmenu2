@@ -8,15 +8,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 /**
  * Created by bingoo on 2015/11/3.
  */
 public class SlidingView extends HorizontalScrollView {
 
+    private Context mContext;
     private ViewGroup leftItemView;
     private ViewGroup contentView;
     private LinearLayout mainLinear;
+    private ListView mListView;
     private float screenWidth;
     private float screenHeight;
     private int menuWidth;
@@ -24,6 +27,7 @@ public class SlidingView extends HorizontalScrollView {
 
     public SlidingView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         this.screenHeight = WindowsUtlls.getWindowHeight(context);
         this.screenWidth = WindowsUtlls.getWindowWidth(context);
     }
@@ -42,6 +46,8 @@ public class SlidingView extends HorizontalScrollView {
         leftItemView = (ViewGroup) mainLinear.getChildAt(0);
         contentView = (ViewGroup) mainLinear.getChildAt(1);
         menuWidth = leftItemView.getWidth();
+        mListView = (ListView) contentView.findViewById(R.id.content_listview);
+        mListView.setAdapter(new ContentListAdapter(mContext));
         /**
          * contentView宽度设置为屏幕宽度
          */
@@ -50,7 +56,6 @@ public class SlidingView extends HorizontalScrollView {
                 ViewGroup.LayoutParams.MATCH_PARENT
         );
         contentView.setLayoutParams(contentViewll);
-
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
