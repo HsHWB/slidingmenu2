@@ -2,7 +2,6 @@ package com.example.sliding.slidingmenu2;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ListView;
 
@@ -43,14 +42,9 @@ public class ListViewForScrollView extends ListView {
                 x_1 = xBegin;
                 y_1 = yBegin;
                 setParentScrollAble(false);
-                state = true;
             case MotionEvent.ACTION_MOVE:
-//                Log.i("yScroll", String.valueOf(yScroll));
                 x_2 = ev.getX();
                 y_2 = ev.getY();
-                System.out.println("xy =="+x_1);
-//                Log.i("scroll", "Math.abs(y_2 - y_1) == "+String.valueOf(Math.abs(y_2 - y_1))+
-//                        "           Math.abs(x_2 - x_1) == "+Math.abs(x_2 - x_1));
                 if (Math.abs(y_2 - y_1) < 30 && Math.abs(x_2 - x_1) > 30 && state){
                     setParentScrollAble(true);
                 }else if (Math.abs(y_2 - y_1) >= 30){
